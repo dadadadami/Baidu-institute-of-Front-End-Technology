@@ -25,9 +25,9 @@
   在事件处理函数中
   获取aqi-input输入的值，并显示在aqi-display中
   */
-  document.getElementById("button").onclick = function(){
-      var value = document.getElementById("aqi-input").value;
-      document.getElementById("aqi-display").innerHTML = value? value : "尚无录入";
+  document.getElementById("button").onclick = function(){ //给按钮button绑定点击事件
+      var value = document.getElementById("aqi-input").value; // 获取用户输入的值
+      document.getElementById("aqi-display").innerHTML = value? value : "尚无录入"; //三目运算符，若用户输入不为空，则将输入的值显示在aqi-display中，否则，显示“尚无录入”
   };
 
 })();
