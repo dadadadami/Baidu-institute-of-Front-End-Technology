@@ -26,7 +26,8 @@
   获取aqi-input输入的值，并显示在aqi-display中
   */
   document.getElementById("button").onclick = function(){
-      document.getElementById("aqi-display").innerHTML = document.getElementById("aqi-input").value;
+      var value = document.getElementById("aqi-input").value;
+      document.getElementById("aqi-display").innerHTML = value? value : "尚无录入";
   };
 
 })();
