@@ -1,0 +1,92 @@
+<!--
+如图，模拟一个队列，队列的每个元素是一个数字，初始队列为空
+有一个input输入框，以及4个操作按钮
+
+点击"左侧入"，将input中输入的数字从左侧插入队列中；
+点击"右侧入"，将input中输入的数字从右侧插入队列中；
+点击"左侧出"，读取并删除队列左侧第一个元素，并弹窗显示元素中数值；
+点击"右侧出"，读取并删除队列又侧第一个元素，并弹窗显示元素中数值；
+点击队列中任何一个元素，则该元素会被从队列中删除
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+    <style type="text/css">
+        ul{ list-style:none; padding:0;}
+        li{ display:inline; text-align:center; background-color:red; padding:15px; margin:5px 5px; color:#FFF; font-weight:bold;}
+    </style>
+  </head>
+<body>
+
+  <input id="number" type="text">
+  <button id="button1">左侧入</button>
+  <button id="button2">右侧入</button>&nbsp;&nbsp;&nbsp;&nbsp;
+  <button id="button3">左侧出</button>
+  <button id="button4">右侧出</button>
+  <ul id="que"></ul>
+<script type="text/javascript">
+
+(function() {
+  /*    
+  在注释下方写下代码
+  给按钮button绑定一个点击事件
+  在事件处理函数中
+  获取aqi-input输入的值，并显示在aqi-display中
+  */
+  document.getElementById("button1").onclick = function(){ //给按钮button1绑定点击事件
+      var value = document.getElementById("number").value;
+      var re = /^[0-9]+.?[0-9]*$/;
+      if(re.test(value)){           //输入的是数字，从左侧插入队列
+          var li = document.createElement("li");
+          var node = document.createTextNode(value);
+          li.appendChild(node);
+          var list  =document.getElementById("que")
+          list.insertBefore(li,list.childNodes[0]);
+      }
+      else
+          alert("Please input a number !");
+  };
+
+  document.getElementById("button2").onclick = function(){ //给按钮button2绑定点击事件
+      value = document.getElementById("number").value;
+      re = /^[0-9]+.?[0-9]*$/;
+      if(re.test(value)){           //输入的是数字，从右侧插入队列
+          li = document.createElement("li");
+          node = document.createTextNode(value);
+          li.appendChild(node);
+          document.getElementById("que").appendChild(li);
+     }
+     else
+          alert("Please input a number !");
+  };
+
+  document.getElementById("button3").onclick = function(){ //给按钮button3绑定点击事件
+      list = document.getElementById("que");
+      if(list.childNodes.length){                   //队列中有数字，从左侧删除一个数字
+          var temp = list.childNodes[0].innerHTML;
+          list.removeChild(list.childNodes[0]); 
+          setTimeout(function() {alert(temp);}, 1);//确保删除后弹出
+      }
+      else
+          alert("There is no numbers in the queue .")   
+  };
+
+  document.getElementById("button4").onclick = function(){ //给按钮button4绑定点击事件
+      list = document.getElementById("que");
+      if(list.childNodes.length){                  //队列中有数字，从右侧删除一个数字
+          temp = list.lastChild.innerHTML;
+          list.removeChild(list.lastChild);
+          setTimeout(function() {alert(temp);}, 1); //确保删除后弹出
+      }
+      else
+          alert("There is no numbers in the queue .")  
+  };
+
+})();
+
+</script>
+</body>
+</html>
