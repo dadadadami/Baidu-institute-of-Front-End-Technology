@@ -13,7 +13,8 @@
     <title>IFE JavaScript Task 01</title>
     <style type="text/css">
         ul{ list-style:none; padding:0;}
-        li{ display:inline-block; text-align:center;background-color:red; padding:15px; margin:5px 5px; color:#FFF; font-weight:bold;}
+        li{ display:inline-block; background-color:red; padding:0px 10px; margin:5px 5px; font-weight:bold;}
+        span{ position:relative;bottom:50px;}
     </style>
   </head>
 <body>
@@ -87,31 +88,41 @@
   };
 
 
-  function sleep(numberMillis) {
-      var now = new Date();
-      var exitTime = now.getTime() + numberMillis;
-      while (true) {
-          now = new Date();
-          if (now.getTime() > exitTime)
-              return;
-      }
-  }
-
-
   document.getElementById("button5").onclick = function(){  //冒泡排序
       list = document.getElementById("que");
       var len = list.childNodes.length;
-
-      for(var i = 0; i < len; i++){
-        for(var j = i+1; j < len; j++){
-            var iheight = parseInt(list.childNodes[i].style.height);
-            var jheight = parseInt(list.childNodes[j].style.height);
-            if(iheight > jheight){
-                list.childNodes[i].style.height = jheight + 'px'; 
-                list.childNodes[j].style.height = iheight + 'px';
-            }
-        }
-      }
+      
+      i = 0, j = 0
+      timer = setInterval(function(){    //可视化
+          if(i < len){
+              if (j < len) { 
+                  var iheight = parseInt(list.childNodes[i].style.height);
+                  var jheight = parseInt(list.childNodes[j].style.height);
+                  if(iheight > jheight){
+                      list.childNodes[i].style.height = jheight + 'px'; 
+                      list.childNodes[j].style.height = iheight + 'px';
+                  }
+                  j++;  
+              }
+              else{  
+                  i++;  
+                  j=i;
+              }  
+          }
+          else{
+              clearInterval(timer);
+          }
+      },500);
+      // for(var i = 0; i < len; i++){
+      //   for(var j = i+1; j < len; j++){
+      //       var iheight = parseInt(list.childNodes[i].style.height);
+      //       var jheight = parseInt(list.childNodes[j].style.height);
+      //       if(iheight > jheight){
+      //           list.childNodes[i].style.height = jheight + 'px'; 
+      //           list.childNodes[j].style.height = iheight + 'px';
+      //       }
+      //   }
+      // }
   }
 
 })();
