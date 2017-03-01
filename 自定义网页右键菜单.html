@@ -1,0 +1,65 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=0.1">
+    <title>自定义右键菜单-LM</title>
+    <style type="text/css">
+        #div1{ border:2px solid #DCDCDC; width:1000px;margin:20px auto 20px 0px; border-radius:5px; background-color:rgba(0,0,0,0.05);;}
+        #div2{ border:2px solid #DCDCDC; width:350px;margin:0px; border-radius:2px; display:none; position:absolute; background-color:white;}
+        p{font-family:"Microsoft Yahei"; font-size:25px; padding:20px 50px;}
+        ul{list-style:none; padding:0;}
+        li{font-family:"Microsoft Yahei"; font-size:25px; padding:10px 30px;}
+    </style>
+</head>
+<body>
+   <div id="div1">
+       <p>right click to see the menu</p>
+   </div>
+
+   <div id="div2">
+    <ul><li>Menu Item 1</li><li>Menu Item 2</li></ul>
+   </div>
+
+    <script type="text/javascript">
+
+         function getXY(eve) {
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+            return {x : scrollLeft + eve.clientX,y : scrollTop + eve.clientY };
+        }
+
+        document.getElementById("div1").oncontextmenu = function(ev){
+            event.preventDefault();  //禁止原来默认的右键行为
+            event.stopPropagation(); //禁止冒泡
+            var oEvent = ev || event;
+            var pos = getXY(oEvent);
+            var div2 = document.getElementById("div2");
+            div2.style.left = pos.x + "px";
+            div2.style.top = pos.y + "px";
+            div2.style.display = "inline-block";
+            div2.oncontextmenu = function(){   //阻止自定义右键菜单对右键点击事件的响应
+                event.preventDefault();
+            }
+
+            var item = div2.getElementsByTagName("li");  //鼠标经过item灰色指示
+            for(var i = 0;i<item.length; i++){
+                item[i].onmouseover = function(){
+                    this.style.backgroundColor = "rgba(0,0,0,0.05)";
+                }
+                item[i].onmouseout = function(){
+                    this.style.backgroundColor = "white";
+                }
+            }
+        }
+
+        document.onclick = function(){   //左键点击的时候取消右键菜单的显示
+            document.getElementById("div2").style.display = "none";
+        }
+
+        document.oncontextmenu = function(){  //在div1之外的网页内右键点击时，取消自定义右键菜单的显示，显示原右键菜单
+            document.getElementById("div2").style.display = "none";
+        }
+
+
+    </script>
+</body>
+</html>
